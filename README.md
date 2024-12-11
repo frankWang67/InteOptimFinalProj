@@ -7,18 +7,19 @@ This is a repository containing my codes for the final project of the course *In
 You can create a `conda` environment if you want:
 
 ```bash
-conda create -n opt
+conda create -n optim
 ```
 
 or just use the default `Python` environment. Then install the dependencies:
 
 ```bash
-pip install numpy pyyaml
+pip install numpy matplotlib pyyaml tqdm
 ```
 
 ## Run
 
 ```bash
 cd /path/to/InteOptimFinalProj
-python -m SimulatedAnnealing.run_TSP
+# Example command to test SA on TSP problems
+python run_exp.py --prob TSP --alg SA
 ```
