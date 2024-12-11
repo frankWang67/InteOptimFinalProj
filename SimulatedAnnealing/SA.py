@@ -52,15 +52,15 @@ class SA_Base:
                     best_solution = current_solution
                     best_cost = current_cost
                     no_update_iters = 0
-
                     if debug:
-                        all_solutions.append(current_solution)
-                        all_costs.append(current_cost)
-                        if show_tsp and isinstance(self, SA_TSP):
-                            self.visualize(current_solution, False)
+                        all_solutions.append(best_solution)
+            else:
+                no_update_iters += 1
 
-                else:
-                    no_update_iters += 1
+            if debug:
+                all_costs.append(best_cost)
+                if show_tsp and isinstance(self, SA_TSP):
+                    self.visualize(best_solution, False)
             
             if self.temperature > 1e-3:
                 self.temperature *= self.alpha
