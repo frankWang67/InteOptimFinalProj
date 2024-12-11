@@ -1,0 +1,14 @@
+base:
+  initial_temperature: 10000
+  cooling_rate: 0.9
+  max_iterations: 10000
+  early_stop_iterations: 100
+
+func_optim:
+  dimension: 2
+  lower_bound: -5.12
+  upper_bound: 5.12
+  step_size: 0.1
+
+TSP:
+  tsp_file: "data/BEN30-XY.txt"
