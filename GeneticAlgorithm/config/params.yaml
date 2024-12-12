@@ -1,14 +1,16 @@
 base:
-  initial_temperature: 10000
-  cooling_rate: 0.1
+  population_size: 50
   max_iterations: 10000
+  mutation_rate: 0.01
+  crossover_rate: 0.1
+  elite_size: 0.1
   early_stop_iterations: 1000
 
 func_optim:
   dimension: 2
   lower_bound: -5.12
   upper_bound: 5.12
-  step_size: 1.0
+  step_size: 0.5
 
 TSP:
   tsp_file: "data/BEN30-XY.txt"

@@ -22,4 +22,6 @@ pip install numpy matplotlib pyyaml tqdm
 cd /path/to/InteOptimFinalProj
 # Example command to test SA on TSP problems
 python run_exp.py --prob TSP --alg SA
+# Example command to test GA on function optimization problems
+python run_exp.py --prob func --alg GA
 ```

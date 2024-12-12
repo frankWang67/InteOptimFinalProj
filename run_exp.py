@@ -1,4 +1,5 @@
 from SimulatedAnnealing.SA import SA_TSP, SA_Func_Optim
+from GeneticAlgorithm.GA import GA_TSP, GA_Func_Optim
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, FFMpegWriter
 import numpy as np
@@ -45,17 +46,13 @@ if args.prob == 'func':
     if args.alg == 'SA':
         solver = SA_Func_Optim(config_file, func)
     elif args.alg == 'GA':
-        pass
-        # TODO
-        # solver = GA_Func_Optim(config_file, func)
+        solver = GA_Func_Optim(config_file, func)
 
 elif args.prob == 'TSP':
     if args.alg == 'SA':
         solver = SA_TSP(config_file)
     elif args.alg == 'GA':
-        pass
-        # TODO
-        # solver = GA_TSP(config_file)
+        solver = GA_TSP(config_file)
 
 for i in tqdm.tqdm(range(EXP_RUNS)):
     solution, cost, time_consumed, iter, all_solutions, all_costs = solver.run(debug=True)
