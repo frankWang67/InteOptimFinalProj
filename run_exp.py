@@ -92,12 +92,28 @@ with open(log_file, 'w') as file:
 print('Done!')
 
 # save the best solution figure
+print('Saving the best solution figure...')
+best_solution = overall_solutions[best_idx]
+fig_file = exp_dir + '/best_solution.png'
 if args.prob == 'TSP':
-    print('Saving the best solution figure...')
-    best_solution = overall_solutions[best_idx]
-    fig_file = exp_dir + '/best_solution.png'
     solver.visualize(best_solution, True, fig_file)
-    print('Done!')
+elif args.prob == 'func' and solver.dim == 2:
+    steps = 100
+    x = np.linspace(solver.lower_bound, solver.upper_bound, steps)
+    y = np.linspace(solver.lower_bound, solver.upper_bound, steps)
+    X, Y = np.meshgrid(x, y)
+    Z = np.zeros(X.shape)
+    for i in range(steps):
+        for j in range(steps):
+            Z[i, j] = solver.func(np.array([X[i, j], Y[i, j]]), solver.dim)
+    plt.contourf(X, Y, Z, levels=50, cmap='viridis')
+    plt.colorbar(label='Function value (z)')
+    plt.plot(best_solution[0], best_solution[1], 'ro')
+    plt.title('Best solution found')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.savefig(fig_file)
+print('Done!')
 
 # save the cost curve of the best run
 print('Saving the cost curve of the best run...')

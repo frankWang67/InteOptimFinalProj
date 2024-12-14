@@ -1,6 +1,6 @@
 base:
   initial_temperature: 10000
-  cooling_rate: 0.1
+  cooling_rate: 0.5
   max_iterations: 10000
   early_stop_iterations: 1000
 

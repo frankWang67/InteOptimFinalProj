@@ -53,10 +53,11 @@ class GA_Base:
                 break
             
             new_population = []
-            elite_count = int(self.elite_size * self.population_size)
-            elite_indices = np.argsort(fitness)[-elite_count:]
-            elites = [population[i] for i in elite_indices]
-            new_population.extend(elites)
+            if self.elite_size > 0.0:
+                elite_count = int(self.elite_size * self.population_size)
+                elite_indices = np.argsort(fitness)[-elite_count:]
+                elites = [population[j] for j in elite_indices]
+                new_population.extend(elites)
             
             while len(new_population) < self.population_size:
                 parent1 = self.select(population, fitness)
@@ -117,8 +118,10 @@ class GA_Func_Optim(GA_Base):
         return -self.func(individual, self.dim)  # Negative for maximizing the fitness
     
     def mutate(self, individual):
-        mutation = individual + np.random.uniform(-self.step_size, self.step_size, self.dim)
-        return np.clip(mutation, self.lower_bound, self.upper_bound)
+        if np.random.rand() < self.mutation_rate:
+            mutation = individual + np.random.uniform(-self.step_size, self.step_size, self.dim)
+            return np.clip(mutation, self.lower_bound, self.upper_bound)
+        return individual
     
     def crossover(self, parent1, parent2):
         if self.dim == 1:
@@ -166,10 +169,12 @@ class GA_TSP(GA_Base):
         return -total_distance  # Negative for maximizing the fitness
     
     def mutate(self, individual):
-        a, b = np.random.choice(self.num_cities, size=2, replace=False)
-        mutated = individual.copy()
-        mutated[a], mutated[b] = mutated[b], mutated[a]
-        return mutated
+        if np.random.rand() < self.mutation_rate:
+            a, b = np.random.choice(self.num_cities, size=2, replace=False)
+            mutated = individual.copy()
+            mutated[a], mutated[b] = mutated[b], mutated[a]
+            return mutated
+        return individual
     
     def crossover(self, parent1, parent2):
         start, end = sorted(np.random.choice(range(self.num_cities), 2, replace=False))
